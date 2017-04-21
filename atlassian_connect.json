@@ -1,0 +1,25 @@
+{
+   "key": "com.atlassian.jira.static.github.development",
+   "name": "GitHub Development Plugin for JIRA",	
+   "description": "GitHub Add-on for creating branches",
+   "vendor": {
+      "name": "T Osowski",
+      "url": "https://github.com"
+   },
+   "baseUrl": "https://39fc5c15.ngrok.io",
+   "authentication": {
+      "type": "none"
+   },
+   "modules": {
+      "webPanels": [
+         {
+            "url": "/main_entry",
+            "key": "hello-world",
+            "location": "atl.jira.view.issue.right.context",
+            "name": {
+               "value": "GitHub Development"
+            }
+         }
+      ]
+   }
+}
