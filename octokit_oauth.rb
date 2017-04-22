@@ -65,6 +65,12 @@ get '/add_repo' do
   redirect to('/')
 end
 
+# Public route to install Add-on from Atlassian
+get '/atlassian-connect.json' do
+  content_type :json
+  File.read(File.join('public', 'atlassian-connect.json'))
+end
+
 # Entry point for JIRA Add-on.
 # JIRA passes in a number of URL parameters https://goo.gl/zyGLiF
 get '/main_entry' do
