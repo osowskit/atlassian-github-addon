@@ -9,7 +9,7 @@
 
 ### Usage
 
-1. Download source and install Ruby dependencies
+1. Clone source and run `bundler install` to install Ruby dependencies
 1. Customize [`atlassian_connect.json`](https://github.com/osowskit/atlassian-github-addon/blob/master/atlassian_connect.json) so `baseUrl` points to the public IP of your server 
 1. Run `ruby octokit_oauth.rb` on a server with a public IP 
 1. Navigate to Atlassian and install the [add-on](https://developer.atlassian.com/static/connect/docs/beta/guides/development-setup.html#install-addon)
