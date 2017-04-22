@@ -73,6 +73,9 @@ get '/main_entry' do
 end
 
 get '/hello-you.html' do
+  # Assume JIRA project doesn't contain '/'
+  jira_issue = request.referrer.split('/').last
+  session[:jira_issue] = jira_issue
   $fqdn = params[:xdm_e]
   redirect to('/')
 end
@@ -116,7 +119,7 @@ get '/create_branch' do
   client.connection_options[:ssl] = { :verify => false }
 
   repo_name = session[:repo_name]
-  branch_name = "JIRA-TEST"
+  branch_name = session[:jira_issue]
   begin
     # Does this branch exist
     sha = client.ref(repo_name, "heads/#{branch_name}")
