@@ -3,7 +3,7 @@ require 'sinatra'
 
 # tmp CLIENT_ID
 set :port, 3311
-enable :sessions
+use Rack::Session::Cookie, :secret => rand.to_s()
 set :protection, :frame_options => "ALLOW-FROM *"
 
 #REMOVE_ME
