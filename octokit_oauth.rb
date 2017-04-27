@@ -74,15 +74,13 @@ end
 # Entry point for JIRA Add-on.
 # JIRA passes in a number of URL parameters https://goo.gl/zyGLiF
 get '/main_entry' do
-  $fqdn = params[:xdm_e]
-  redirect to('/')
-end
 
-get '/hello-you.html' do
-  # Assume JIRA project doesn't contain '/'
   jira_issue = request.referrer.split('/').last
-  session[:jira_issue] = jira_issue
+  session[:jira_issue] if !jira_issue.nil? else "JIRA-BRANCH"
+
   $fqdn = params[:xdm_e]
+  return "xdm_e Header required #{params}" if $fqdn.nil?
+
   redirect to('/')
 end
 
@@ -121,7 +119,6 @@ get '/create_branch' do
     redirect to('/')
   end
   client = Octokit::Client.new(:access_token => session[:access_token] )
-  client.connection_options[:ssl] = { :verify => false }
 
   repo_name = session[:repo_name]
   branch_name = session[:jira_issue]
@@ -144,5 +141,6 @@ get '/logout' do
   session[:repo_name] = nil
   session[:name_list] = nil
   session[:branch_name] = nil
+  session[:jira_issue] = nil
   redirect to('/')
 end
