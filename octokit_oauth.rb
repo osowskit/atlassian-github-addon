@@ -74,12 +74,11 @@ end
 # Entry point for JIRA Add-on.
 # JIRA passes in a number of URL parameters https://goo.gl/zyGLiF
 get '/main_entry' do
+  # Handle loading outside of JIRA environment
+  jira_issue =  request.referrer.nil? ? nil : request.referrer.split('/').last
+  session[:jira_issue] = !jira_issue.nil? ? jira_issue : "JIRA-BRANCH"
 
-  jira_issue = request.referrer.split('/').last
-  session[:jira_issue] if !jira_issue.nil? else "JIRA-BRANCH"
-
-  $fqdn = params[:xdm_e]
-  return "xdm_e Header required #{params}" if $fqdn.nil?
+  $fqdn = params[:xdm_e].nil? ? "" : params[:xdm_e]
 
   redirect to('/')
 end
@@ -89,6 +88,9 @@ get '/' do
   # Ensure user is authenticated with OAuth token
   if !authenticated?
     @url = client.authorize_url(GITHUB_CLIENT_ID, :scope => 'repo')
+    if session[:jira_issue].nil?
+      session[:jira_issue] = "JIRA-BRANCH"
+    end
     return erb :authorize
   else
     # Switch to end-user's token for GitHub API calls
