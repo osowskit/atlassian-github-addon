@@ -7,9 +7,9 @@
    <body>
       <div class="ac-content">
           <p class="title">
-            <% @name_list.each do | val | -%>
+            <% @name_list.each do | val | %>
               <a href="/add_repo?repo_name=<%= val %>"><%= val %></a></br>
-            <% end -%>
+            <% end %>
           </p>
           <a href="/logout">clear settings</a>
       </div>
