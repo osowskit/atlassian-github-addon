@@ -2,7 +2,7 @@ require 'octokit'
 require 'sinatra'
 
 # tmp CLIENT_ID
-set :port, 3311
+# set :port, 3311
 use Rack::Session::Cookie, :secret => rand.to_s()
 set :protection, :frame_options => "ALLOW-FROM *"
 
@@ -95,8 +95,7 @@ get '/' do
   else
     # Switch to end-user's token for GitHub API calls
     client = Octokit::Client.new(:access_token => session[:access_token] )
-    client.connection_options[:ssl] = { :verify => false }
-        
+
     if !set_repo?
       @name_list = [] 
       # Get all repositories a user has write access to
