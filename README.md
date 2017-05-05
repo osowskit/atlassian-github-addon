@@ -1,5 +1,6 @@
 # atlassian-github-addon
 
+Install a push
 
 ### Configuration
 
